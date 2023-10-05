@@ -15,6 +15,7 @@ function handleClick() {
     let clickedButton = this.inneHTML;
 
     makeSound(clickedButton)
+    buttonAnimation(clickedButton);
 };
 
 
@@ -29,6 +30,7 @@ document.addEventListener("keydown", function(event) {
     // "event" has a "key" property that we can tap into
     // the tapped in value will be passed as the parameter for "makeSound(key)"
     makeSound(event.key);
+    buttonAnimation(event.key);
 });
 
 
@@ -97,9 +99,18 @@ function makeSound(key){
     };
 }
 
-
+// ADDING ANIMATION TO CLICKED/PRESSED KEY
 function buttonAnimation(currentBtn) {
-    let activeBtn = document.querySelector("." + currentBtn);
+        let activeBtn = document.querySelector("." + currentBtn);
+        // Adds "pressed" class to "activeBtn"
+        activeBtn.classList.add("pressed");
+        
+        // Add delay before removing added class
+        setTimeout(function() {
+           activeBtn.classList.remove("pressed");
+    
+        }, 100)
+        
 };
 
 
