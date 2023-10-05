@@ -5,8 +5,29 @@ function handleClick() {
     console.log(this);
 
     
-    this.style.color = "white";
+    // this.style.color = "white";
 
+
+    let buttonInnerHTML = this.inneHTML;
+
+    switch (buttonInnerHTML) {
+        case "w":
+            let tom1 = new Audio("sounds/tom-1.mp3");
+            tom1.play();
+            break;
+
+        case "a":
+            let tom2= new Audio("sounds/tom-2.mp3");
+            tom2.play();
+            break;
+        
+        case "w":
+            let tom3= new Audio("sounds/tom-3.mp3");
+            tom3.play();
+            break;
+
+
+    }
 
     // Add audio sound to a specific key
     let audio = new Audio("sounds/crash.mp3");
