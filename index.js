@@ -1,60 +1,51 @@
 // DETECTING CLICKED BUTTONS
 
-// Function to be passsed into Event Listener
 function handleClick() {
-        
-    // "this" is a keyword that refere to an object
-    // Depending on how "this" is called will determine which object it refers to 
-    // In the case of events, "this" retrieves the identity of the event listener (i.e. element that triggered the event)
-    
-    console.log(this);
-    
-    // this.style.color = "white";
-   
-    // Stores the value of the Button that triggered the event
-    let clickedButton = this.inneHTML;
-
-    makeSound(clickedButton)
-    buttonAnimation(clickedButton);
+  
 };
-
-
-
-//DETECTING PRESSED KEYS
-
-// Adding Event Listener to "document" will make the entire webpage listen for keyboard strokes
-// When the function get triggered there is an option to pass in a parameter
-// This allows us to tap into the "event" that triggered event listener
-
-document.addEventListener("keydown", function(event) {
-    // "event" has a "key" property that we can tap into
-    // the tapped in value will be passed as the parameter for "makeSound(key)"
-    makeSound(event.key);
-    buttonAnimation(event.key);
-});
-
 
 
 // Creates a constant list containing all elements with class "drum"
 const myDrums = document.querySelectorAll(".drum")
 
-// Adds an Event Listener to each element in myDrums const
+// Adds an Event Listener to each element in myDrums
 for (let i = 0; i < myDrums.length; i++) {
     
-    // addEventListener passes in a function so it can be called later on
-    myDrums[i].addEventListener("click", handleClick) 
+    // addEventListener passes in the handleClick function so it can be called when "click" events occur
+    myDrums[i].addEventListener("click", function() {
+        // "this" is a keyword that refers to an object
+        // Depending on how "this" is called will determine which object it refers to 
+        // In the case of events, "this" retrieves the identity of the event listener (i.e. element that triggered the event)
+        
+        // Stores the value of the Button that triggered the event
+        let clickedButton = this.innerHTML;
+        makeSound(clickedButton);
+        buttonAnimation(clickedButton);
+    }); 
   
-}
+};
+
+//DETECTING PRESSED KEYS
+// Adding Event Listener to "document" will make the webpage listen for keyboard strokes
+// When the function get triggered there is an option to pass in a parameter 
+// This allows us to tap into the "event" that triggered event listener
+
+document.addEventListener("keydown", function(event) {
+   
+    // "event" has a "key" property that we can use to identify which was pressed
+    makeSound(event.key);
+    buttonAnimation(event.key);
+
+});
 
 
 function makeSound(key){
     
     // "switch" performs different actions based on different conditions
-    // "pressedButton" is the expression that will be "switched"
+    // "key" is the expression that will be "switched"
     // "case" are the conditions being checked
 
-    // "switch works by comparing the value of the expression to the values of the cases
-    
+    // "switch compares value of the expression to the values of the cases
     switch (key) {
         // "case"   
         case "w":
@@ -92,15 +83,16 @@ function makeSound(key){
             kick.play();
             break;
 
-        // "default" acts like an "else"
-        // only executed if no "case" above was a match
+        // "default" is like an "else", and only executed if no "case" above was a match
         default:
-            console.log(pressedButton);
+            console.log(clickedButton);
+
     };
 }
 
 // ADDING ANIMATION TO CLICKED/PRESSED KEY
 function buttonAnimation(currentBtn) {
+    
         let activeBtn = document.querySelector("." + currentBtn);
         // Adds "pressed" class to "activeBtn"
         activeBtn.classList.add("pressed");
@@ -108,12 +100,11 @@ function buttonAnimation(currentBtn) {
         // Add delay before removing added class
         setTimeout(function() {
            activeBtn.classList.remove("pressed");
-    
         }, 100)
-        
+
 };
 
 
-// NOTE: addEventListener is a high order function
+// NOTE: "addEventListener" is a high order function
 // The function being passed in is a callback function
 // The object that experienced the event is what calls the callback function
