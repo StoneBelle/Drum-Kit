@@ -1,17 +1,11 @@
 // DETECTING CLICKED BUTTONS
-
-function handleClick() {
-  
-};
-
-
 // Creates a constant list containing all elements with class "drum"
 const myDrums = document.querySelectorAll(".drum")
 
 // Adds an Event Listener to each element in myDrums
 for (let i = 0; i < myDrums.length; i++) {
     
-    // addEventListener passes in the handleClick function so it can be called when "click" events occur
+    // addEventListener passes in an anonymous function so it can be called when "click" events occur
     myDrums[i].addEventListener("click", function() {
         // "this" is a keyword that refers to an object
         // Depending on how "this" is called will determine which object it refers to 
